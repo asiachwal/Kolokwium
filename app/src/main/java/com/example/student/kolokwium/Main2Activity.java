@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -37,8 +38,27 @@ public class Main2Activity extends AppCompatActivity {
         lekarze.add(new Lekarze("Jan Kowalski","dermatolog" ));
         lekarze.add(new Lekarze("Krystyna Jakaś","chirurg" ));
         lekarze.add(new Lekarze("Paweł Nowak","onkolog" ));
+        lekarze.add(new Lekarze("Martyna Coś","pediatra" ));
 
 
+
+
+            OnClickPlace listener = new OnClickPlace() {
+                @Override
+                public void onClickPlace(View view, int position) {
+                    lekarzeText = lekarze.get(position).getNazwisko();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("CoffeeName", lekarzeText);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+
+
+       };
+
+        LekarzeAdapter lekarzeAdapter = new LekarzeAdapter(lekarze, listener );
+        recView.setAdapter(lekarzeAdapter);
 
     }
 }
